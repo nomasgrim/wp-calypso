@@ -216,7 +216,7 @@ export class SimpleSiteRenameForm extends Component {
 
 		if ( ! currentDomain.currentUserCanManage ) {
 			return (
-				<div className="simple-site-rename-form simple-site-rename-form__only-owner-info">
+				<div className="site-address-changer site-address-changer__only-owner-info">
 					<Gridicon icon="info-outline" />
 					{ isEmpty( currentDomain.owner )
 						? translate( 'Only the site owner can edit this domain name.' )
@@ -232,7 +232,7 @@ export class SimpleSiteRenameForm extends Component {
 		}
 
 		return (
-			<div className="simple-site-rename-form">
+			<div className="site-address-changer">
 				<ConfirmationDialog
 					isVisible={ this.state.showDialog }
 					onClose={ this.onDialogClose }
@@ -246,7 +246,7 @@ export class SimpleSiteRenameForm extends Component {
 						eventName="calypso_siteaddresschange_form_view"
 						eventProperties={ { blog_id: siteId } }
 					/>
-					<Card className="simple-site-rename-form__content">
+					<Card className="site-address-changer__content">
 						<FormSectionHeading>{ translate( 'Change Site Address' ) }</FormSectionHeading>
 						<FormTextInputWithAffixes
 							type="text"
@@ -260,8 +260,8 @@ export class SimpleSiteRenameForm extends Component {
 							validationMessage && (
 								<FormInputValidation isError={ ! isAvailable } text={ validationMessage } />
 							) }
-						<div className="simple-site-rename-form__footer">
-							<div className="simple-site-rename-form__info">
+						<div className="site-address-changer__footer">
+							<div className="site-address-changer__info">
 								<Gridicon icon="info-outline" size={ 18 } />
 								<p>
 									{ translate(
