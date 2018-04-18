@@ -36,7 +36,7 @@ const SUBDOMAIN_LENGTH_MAXIMUM = 50;
 const ADDRESS_CHANGE_SUPPORT_URL = 'https://support.wordpress.com/changing-blog-address/';
 const VALIDATION_DEBOUNCE_MS = 800;
 
-export class SimpleSiteRenameForm extends Component {
+export class SiteAddressChanger extends Component {
 	static propTypes = {
 		currentDomainSuffix: PropTypes.string.isRequired,
 		currentDomain: PropTypes.object.isRequired,
@@ -310,4 +310,4 @@ export default flow(
 			clearValidationError,
 		}
 	)
-)( SimpleSiteRenameForm );
+)( SiteAddressChanger );
