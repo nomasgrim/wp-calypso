@@ -25,7 +25,7 @@ import {
 	clearValidationError,
 } from 'state/site-rename/actions';
 import {
-	isRequestingSiteRename,
+	isRequestingSiteAddressChange,
 	getSiteAddressAvailabilityPending,
 	getSiteAddressValidationError,
 } from 'state/selectors';
@@ -42,7 +42,7 @@ export class SiteAddressChanger extends Component {
 		currentDomain: PropTypes.object.isRequired,
 
 		// `connect`ed
-		isSiteRenameRequesting: PropTypes.bool,
+		isSiteAddressChangeRequesting: PropTypes.bool,
 		selectedSiteId: PropTypes.number,
 	};
 
@@ -134,7 +134,7 @@ export class SiteAddressChanger extends Component {
 	};
 
 	onFieldChange = event => {
-		if ( this.props.isAvailabilityPending || this.props.isSiteRenameRequesting ) {
+		if ( this.props.isAvailabilityPending || this.props.isSiteAddressChangeRequesting ) {
 			return;
 		}
 
@@ -201,7 +201,7 @@ export class SiteAddressChanger extends Component {
 			currentDomainSuffix,
 			isAvailabilityPending,
 			isAvailable,
-			isSiteRenameRequesting,
+			isSiteAddressChangeRequesting,
 			siteId,
 			translate,
 		} = this.props;
@@ -211,7 +211,7 @@ export class SiteAddressChanger extends Component {
 		const currentDomainPrefix = this.getCurrentDomainPrefix();
 		const shouldShowValidationMessage = this.shouldShowValidationMessage();
 		const validationMessage = this.getValidationMessage();
-		const isBusy = isSiteRenameRequesting || isAvailabilityPending;
+		const isBusy = isSiteAddressChangeRequesting || isAvailabilityPending;
 		const isDisabled = domainFieldValue === currentDomainPrefix || ! isAvailable;
 
 		if ( ! currentDomain.currentUserCanManage ) {
@@ -299,7 +299,7 @@ export default flow(
 				siteId,
 				selectedSiteId: siteId,
 				isAvailable,
-				isSiteRenameRequesting: isRequestingSiteRename( state, siteId ),
+				isSiteAddressChangeRequesting: isRequestingSiteAddressChange( state, siteId ),
 				isAvailabilityPending: getSiteAddressAvailabilityPending( state, siteId ),
 				validationError: getSiteAddressValidationError( state, siteId ),
 			};
