@@ -19,7 +19,7 @@ import Item from './item';
 import WordPressLogo from 'components/wordpress-logo';
 import WordPressWordmark from 'components/wordpress-wordmark';
 import { addQueryArgs } from 'lib/route';
-import { getCurrentQueryArguments, getCurrentRoute } from 'state/selectors';
+import { getCurrentQueryArguments, getCurrentRoute, getCurrentLocaleSlug } from 'state/selectors';
 import { login } from 'lib/paths';
 
 class MasterbarLoggedOut extends PureComponent {
@@ -74,7 +74,7 @@ class MasterbarLoggedOut extends PureComponent {
 	}
 
 	renderSignupItem() {
-		const { currentQuery, currentRoute, sectionName, translate } = this.props;
+		const { currentQuery, currentRoute, sectionName, localeSlug, translate } = this.props;
 
 		// Hide for some sections
 		if ( includes( [ 'signup', 'jetpack-onboarding' ], sectionName ) ) {
@@ -121,6 +121,10 @@ class MasterbarLoggedOut extends PureComponent {
 			signupUrl = '/jetpack/new';
 		} else if ( signupFlow ) {
 			signupUrl += '/' + signupFlow;
+		} else if ( ! signupFlow && localeSlug ) {
+			// if a localeSlug exists in logged-out
+			// attach it to the signup url
+			signupUrl += '/' + localeSlug;
 		}
 
 		return (
@@ -154,4 +158,5 @@ class MasterbarLoggedOut extends PureComponent {
 export default connect( state => ( {
 	currentQuery: getCurrentQueryArguments( state ),
 	currentRoute: getCurrentRoute( state ),
+	localeSlug: getCurrentLocaleSlug( state ),
 } ) )( localize( MasterbarLoggedOut ) );
