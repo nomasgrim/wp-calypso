@@ -353,9 +353,12 @@ class ManagePurchase extends Component {
 		return (
 			<div className="manage-purchase__content">
 				<span className="manage-purchase__description">{ description }</span>
-				<span className="manage-purchase__settings-link">
-					<ProductLink selectedPurchase={ purchase } selectedSite={ selectedSite } />
-				</span>
+				{ /* Disconnected sites can't link to their product pages */
+				selectedSite && (
+					<span className="manage-purchase__settings-link">
+						<ProductLink selectedPurchase={ purchase } selectedSite={ selectedSite } />
+					</span>
+				) }
 			</div>
 		);
 	}
