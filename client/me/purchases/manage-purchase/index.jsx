@@ -89,6 +89,7 @@ class ManagePurchase extends Component {
 		plan: PropTypes.object,
 		selectedPurchase: PropTypes.object,
 		selectedSite: PropTypes.oneOfType( [ PropTypes.object, PropTypes.bool ] ),
+		siteSlug: PropTypes.string.isRequired,
 		theme: PropTypes.object,
 	};
 
@@ -146,7 +147,7 @@ class ManagePurchase extends Component {
 
 		addItems( renewItems );
 
-		page( '/checkout/' + this.props.selectedSite.slug );
+		page( '/checkout/' + this.props.siteSlug );
 	};
 
 	renderRenewButton() {
@@ -228,7 +229,7 @@ class ManagePurchase extends Component {
 		};
 
 		let text,
-			link = cancelPurchase( this.props.selectedSite.slug, id );
+			link = cancelPurchase( this.props.siteSlug, id );
 
 		if ( isAtomicSite && isSubscription( purchase ) ) {
 			text = translate( 'Contact Support to Cancel your Subscription' );
@@ -285,7 +286,7 @@ class ManagePurchase extends Component {
 		}
 
 		return (
-			<CompactCard href={ cancelPrivacyProtection( this.props.selectedSite.slug, id ) }>
+			<CompactCard href={ cancelPrivacyProtection( this.props.siteSlug, id ) }>
 				{ translate( 'Cancel Privacy Protection' ) }
 			</CompactCard>
 		);
