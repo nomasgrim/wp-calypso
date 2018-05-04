@@ -3,10 +3,10 @@
 /**
  * External dependencies
  */
-
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { localize } from 'i18n-calypso';
+import PropTypes from 'prop-types';
 
 /**
  * Internal Dependencies
@@ -26,6 +26,10 @@ import { isJetpackPlan, isFreeJetpackPlan } from 'lib/products-values';
 import { getPluginsForSite } from 'state/plugins/premium/selectors';
 
 class PurchasePlanDetails extends Component {
+	static propTypes = {
+		siteId: PropTypes.number,
+	};
+
 	renderPlaceholder() {
 		return (
 			<div className="plan-details__wrapper is-placeholder">
@@ -48,7 +52,7 @@ class PurchasePlanDetails extends Component {
 	}
 
 	render() {
-		const { selectedSite, pluginList, translate } = this.props;
+		const { pluginList, siteId, translate } = this.props;
 		const purchase = getPurchase( this.props );
 
 		// Short out as soon as we know it's not a Jetpack plan
@@ -56,7 +60,7 @@ class PurchasePlanDetails extends Component {
 			return null;
 		}
 
-		if ( isDataLoading( this.props ) || ! this.props.selectedSite ) {
+		if ( isDataLoading( this.props ) || ! this.props.siteId ) {
 			return this.renderPlaceholder();
 		}
 
@@ -72,7 +76,7 @@ class PurchasePlanDetails extends Component {
 
 		return (
 			<div className="plan-details">
-				<QueryPluginKeys siteId={ selectedSite.ID } />
+				<QueryPluginKeys siteId={ siteId } />
 				<SectionHeader label={ headerText } />
 				<Card>
 					<PlanBillingPeriod purchase={ purchase } />
@@ -95,9 +99,9 @@ class PurchasePlanDetails extends Component {
 
 // hasLoadedSites & hasLoadedUserPurchasesFromServer are used in isDataLoading,
 // selectedPurchase is used in getPurchase
-export default connect( ( state, props ) => ( {
+export default connect( ( state, { purchaseId, siteId } ) => ( {
 	hasLoadedSites: ! isRequestingSites( state ),
 	hasLoadedUserPurchasesFromServer: hasLoadedUserPurchasesFromServer( state ),
-	selectedPurchase: getByPurchaseId( state, props.purchaseId ),
-	pluginList: props.selectedSite ? getPluginsForSite( state, props.selectedSite.ID ) : [],
+	selectedPurchase: getByPurchaseId( state, purchaseId ),
+	pluginList: siteId ? getPluginsForSite( state, siteId ) : [],
 } ) )( localize( PurchasePlanDetails ) );
