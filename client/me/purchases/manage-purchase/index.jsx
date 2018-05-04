@@ -77,11 +77,9 @@ import VerticalNavItem from 'components/vertical-nav/item';
 import { cancelPurchase, cancelPrivacyProtection, purchasesRoot } from '../paths';
 import { CALYPSO_CONTACT } from 'lib/url/support';
 import titles from 'me/purchases/titles';
-import userFactory from 'lib/user';
 import { addItems } from 'lib/upgrades/actions';
 import PageViewTracker from 'lib/analytics/page-view-tracker';
-
-const user = userFactory();
+import { getCurrentUserId } from 'state/current-user/selectors';
 
 class ManagePurchase extends Component {
 	static propTypes = {
@@ -451,7 +449,7 @@ class ManagePurchase extends Component {
 
 		return (
 			<Fragment>
-				<QueryUserPurchases userId={ user.get().ID } />
+				<QueryUserPurchases userId={ this.props.userId } />
 				{ isPurchaseTheme && (
 					<QueryCanonicalTheme siteId={ selectedSiteId } themeId={ selectedPurchase.meta } />
 				) }
@@ -493,5 +491,6 @@ export default connect( ( state, props ) => {
 		isPurchaseTheme,
 		theme: isPurchaseTheme && getCanonicalTheme( state, selectedSiteId, selectedPurchase.meta ),
 		isAtomicSite: selectedSite && isSiteAtomic( state, selectedSiteId ),
+		userId: getCurrentUserId( state ),
 	};
 } )( localize( ManagePurchase ) );
