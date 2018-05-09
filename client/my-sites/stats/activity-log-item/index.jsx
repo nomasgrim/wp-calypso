@@ -214,6 +214,7 @@ class ActivityLogItem extends Component {
 
 	renderItemAction() {
 		const {
+			enableClone,
 			hideRestore,
 			activity: { activityIsRewindable, activityName, activityMeta },
 			plugin,
@@ -255,6 +256,10 @@ class ActivityLogItem extends Component {
 
 		if ( ! hideRestore && activityIsRewindable ) {
 			return this.renderRewindAction();
+		}
+
+		if ( enableClone && activityIsRewindable ) {
+			return this.renderCloneAction();
 		}
 	}
 
@@ -325,6 +330,22 @@ class ActivityLogItem extends Component {
 				onClick={ trackFixCreds }
 			>
 				{ translate( 'Fix credentials' ) }
+			</Button>
+		);
+	};
+
+	performCloneAction = () => this.props.cloneOnClick( this.props.activity.activityTs );
+
+	renderCloneAction = () => {
+		const { cloneOnClick, translate } = this.props;
+
+		return (
+			<Button
+				className="activity-log-item__clone-action"
+				primary
+				onClick={ this.performCloneAction }
+			>
+				{ translate( 'Clone from here' ) }
 			</Button>
 		);
 	};
