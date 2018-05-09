@@ -11,7 +11,6 @@ import PropTypes from 'prop-types';
 import EditorDrawer from 'post-editor/editor-drawer';
 import EditorSidebarHeader from './header';
 import SidebarFooter from 'layout/sidebar/footer';
-import EditorActionBar from 'post-editor/editor-action-bar';
 import EditorDeletePost from 'post-editor/editor-delete-post';
 
 export class EditorSidebar extends Component {
@@ -47,7 +46,6 @@ export class EditorSidebar extends Component {
 		return (
 			<div className="editor-sidebar">
 				<EditorSidebarHeader />
-				<EditorActionBar isNew={ isNew } post={ post } savedPost={ savedPost } site={ site } />
 				<EditorDrawer
 					site={ site }
 					savedPost={ savedPost }
