@@ -28,7 +28,6 @@ import getPodcastingCategoryId from 'state/selectors/get-podcasting-category-id'
 
 class EditorActionBar extends Component {
 	static propTypes = {
-		isNew: PropTypes.bool,
 		post: PropTypes.object,
 		savedPost: PropTypes.object,
 		site: PropTypes.object,
@@ -71,9 +70,7 @@ class EditorActionBar extends Component {
 					<EditorStatusLabel post={ this.props.savedPost } advancedStatus />
 				</div>
 				<div className="editor-action-bar__cell is-center">
-					{ multiUserSite && (
-						<AsyncLoad require="post-editor/editor-author" isNew={ this.props.isNew } />
-					) }
+					{ multiUserSite && <AsyncLoad require="post-editor/editor-author" /> }
 				</div>
 				<div className="editor-action-bar__cell is-right">
 					{ this.props.post &&
