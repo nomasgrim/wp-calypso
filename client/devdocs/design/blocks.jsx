@@ -84,6 +84,7 @@ import ConversationCaterpillar from 'blocks/conversation-caterpillar/docs/exampl
 import ConversationFollowButton from 'blocks/conversation-follow-button/docs/example';
 import ColorSchemePicker from 'blocks/color-scheme-picker/docs/example';
 import UserMentions from 'blocks/user-mentions/docs/example';
+import JetpackConnectHeaderLogo from 'blocks/jetpack-connect-header-logo/docs/example';
 
 export default class AppComponents extends React.Component {
 	static displayName = 'AppComponents';
@@ -188,6 +189,7 @@ export default class AppComponents extends React.Component {
 					{ isEnabled( 'reader/user-mention-suggestions' ) && (
 						<UserMentions readmeFilePath="user-mentions" />
 					) }
+					<JetpackConnectHeaderLogo readmeFilePath="jetpack-connect-header-logo" />
 				</Collection>
 			</Main>
 		);
