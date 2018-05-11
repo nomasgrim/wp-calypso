@@ -24,6 +24,8 @@ import ResizableIframe from 'components/resizable-iframe';
 import isHappychatOpen from 'state/happychat/selectors/is-happychat-open';
 import hasActiveHappychatSession from 'state/happychat/selectors/has-active-happychat-session';
 import AsyncLoad from 'components/async-load';
+import MinimalPost from './inline-help-support-article.jsx';
+import { SUPPORT_BLOG_ID } from 'blocks/inline-help/constants';
 
 /**
  * Module variables
@@ -109,17 +111,19 @@ class InlineHelp extends Component {
 	};
 
 	// @TODO: Instead of prop drilling this should be done via redux
-	setDialogState = ( { showDialog, videoLink } ) =>
+	setDialogState = ( { showDialog, videoLink = null, dialogType, dialogPostId = null } ) =>
 		this.setState( {
 			showDialog,
 			videoLink,
+			dialogType,
+			dialogPostId,
 		} );
 
 	closeDialog = () => this.setState( { showDialog: false } );
 
 	render() {
 		const { translate } = this.props;
-		const { showInlineHelp, showDialog, videoLink } = this.state;
+		const { showInlineHelp, showDialog, videoLink, dialogType, dialogPostId } = this.state;
 		const inlineHelpButtonClasses = { 'inline-help__button': true, 'is-active': showInlineHelp };
 
 		/* @TODO: This class is not valid and this tricks the linter
@@ -154,17 +158,22 @@ class InlineHelp extends Component {
 						onCancel={ this.closeDialog }
 						onClose={ this.closeDialog }
 					>
-						<div className={ iframeClasses }>
-							<ResizableIframe
-								src={ videoLink + '?rel=0&amp;showinfo=0&amp;autoplay=1' }
-								frameBorder="0"
-								seamless
-								allowFullScreen
-								autoPlay
-								width="640"
-								height="360"
-							/>
-						</div>
+						{ dialogType === 'article' && (
+							<MinimalPost blogId={ SUPPORT_BLOG_ID } postId={ dialogPostId } />
+						) }
+						{ dialogType === 'video' && (
+							<div className={ iframeClasses }>
+								<ResizableIframe
+									src={ videoLink + '?rel=0&amp;showinfo=0&amp;autoplay=1' }
+									frameBorder="0"
+									seamless
+									allowFullScreen
+									autoPlay
+									width="640"
+									height="360"
+								/>
+							</div>
+						) }
 					</Dialog>
 				) }
 				{ this.props.isHappychatButtonVisible &&

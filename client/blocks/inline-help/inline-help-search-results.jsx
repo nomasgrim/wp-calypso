@@ -69,6 +69,7 @@ class InlineHelpSearchResults extends Component {
 	renderContextHelp() {
 		const section = pathToSection( this.props.lastRoute.path );
 		const links = getContextResults( section );
+
 		return (
 			<ul className="inline-help__results-list">{ links && links.map( this.renderHelpLink ) }</ul>
 		);
