@@ -15,7 +15,7 @@ import EmbedContainer from 'components/embed-container';
 import { markPostSeen } from 'state/reader/posts/actions';
 import SupportArticleHeader from 'blocks/inline-help/inline-help-support-article-header';
 
-import { recordAction, recordGaEvent, recordTrackForPost } from 'reader/stats';
+import { recordTrackForPost } from 'reader/stats';
 import { like as likePost, unlike as unlikePost } from 'state/posts/likes/actions';
 import { getFeed } from 'state/reader/feeds/selectors';
 import { getSite } from 'state/reader/sites/selectors';
