@@ -21,6 +21,7 @@ import {
 	RESULT_TYPE,
 	RESULT_VIDEO,
 } from './constants';
+import config from 'config';
 import Button from 'components/button';
 import { decodeEntities, preventWidows } from 'lib/formatting';
 import { recordTracksEvent } from 'state/analytics/actions';
@@ -68,15 +69,17 @@ class InlineHelpRichResult extends Component {
 					videoLink: get( result, RESULT_LINK ),
 				} );
 			}
-		} else if ( type === RESULT_ARTICLE && postId ) {
-			if ( postId ) {
-				event.preventDefault();
-				this.props.setDialogState( {
-					showDialog: true,
-					dialogType: 'article',
-					dialogPostId: postId,
-				} );
-			}
+		} else if (
+			config.isEnabled( 'inline-help/support-article-view' ) &&
+			type === RESULT_ARTICLE &&
+			postId
+		) {
+			event.preventDefault();
+			this.props.setDialogState( {
+				showDialog: true,
+				dialogType: 'article',
+				dialogPostId: postId,
+			} );
 		} else {
 			if ( ! href ) {
 				return;
