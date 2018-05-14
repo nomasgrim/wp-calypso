@@ -26,7 +26,7 @@ import HeaderCake from 'components/header-cake';
 import { isDomainOnlySite as isDomainOnly } from 'state/selectors';
 import { getByPurchaseId, hasLoadedUserPurchasesFromServer } from 'state/purchases/selectors';
 import { getName as getDomainName } from 'lib/purchases';
-import { getPurchase, isDataLoading, recordPageView } from '../utils';
+import { isDataLoading, recordPageView } from '../utils';
 import { getSelectedSite } from 'state/ui/selectors';
 import { isDomainRegistration } from 'lib/products-values';
 import { isRequestingSites } from 'state/sites/selectors';
@@ -80,7 +80,7 @@ class ConfirmCancelDomain extends React.Component {
 			return null;
 		}
 
-		const purchase = getPurchase( props );
+		const purchase = props.selectedPurchase;
 
 		if ( ! purchase || ! isDomainRegistration( purchase ) || ! props.selectedSite ) {
 			page.redirect( purchasesRoot );
@@ -100,7 +100,7 @@ class ConfirmCancelDomain extends React.Component {
 	onSubmit = event => {
 		event.preventDefault();
 
-		const purchase = getPurchase( this.props ),
+		const purchase = this.props.selectedPurchase,
 			purchaseName = getDomainName( purchase );
 
 		const data = {
@@ -256,7 +256,7 @@ class ConfirmCancelDomain extends React.Component {
 			);
 		}
 
-		const purchase = getPurchase( this.props );
+		const purchase = this.props.selectedPurchase;
 		const domain = getDomainName( purchase );
 		const selectedReason = this.state.selectedReason;
 

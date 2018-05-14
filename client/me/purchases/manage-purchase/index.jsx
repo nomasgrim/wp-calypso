@@ -41,7 +41,6 @@ import {
 	canEditPaymentDetails,
 	isDataLoading,
 	getEditCardDetailsPath,
-	getPurchase,
 	recordPageView,
 } from '../utils';
 import { getByPurchaseId, hasLoadedUserPurchasesFromServer } from 'state/purchases/selectors';
@@ -115,11 +114,11 @@ class ManagePurchase extends Component {
 			return true;
 		}
 
-		return Boolean( getPurchase( props ) );
+		return Boolean( props.selectedPurchase );
 	}
 
 	handleRenew = () => {
-		const purchase = getPurchase( this.props ),
+		const purchase = this.props.selectedPurchase,
 			renewItem = cartItems.getRenewalItemFromProduct( purchase, {
 				domain: purchase.meta,
 			} ),
@@ -150,7 +149,7 @@ class ManagePurchase extends Component {
 	};
 
 	renderRenewButton() {
-		const purchase = getPurchase( this.props );
+		const purchase = this.props.selectedPurchase;
 		const { translate } = this.props;
 
 		if ( ! config.isEnabled( 'upgrades/checkout' ) ) {
@@ -183,7 +182,7 @@ class ManagePurchase extends Component {
 	}
 
 	renderEditPaymentMethodNavItem() {
-		const purchase = getPurchase( this.props );
+		const purchase = this.props.selectedPurchase;
 		const { translate } = this.props;
 
 		if ( ! this.props.selectedSite ) {
@@ -211,7 +210,7 @@ class ManagePurchase extends Component {
 	}
 
 	renderCancelPurchaseNavItem() {
-		const purchase = getPurchase( this.props ),
+		const purchase = this.props.selectedPurchase,
 			{ id } = purchase;
 		const { translate, isAtomicSite } = this.props;
 
@@ -272,7 +271,7 @@ class ManagePurchase extends Component {
 	}
 
 	renderCancelPrivacyProtection() {
-		const purchase = getPurchase( this.props ),
+		const purchase = this.props.selectedPurchase,
 			{ id } = purchase;
 		const { translate } = this.props;
 
@@ -292,7 +291,7 @@ class ManagePurchase extends Component {
 	}
 
 	renderPlanIcon() {
-		const purchase = getPurchase( this.props );
+		const purchase = this.props.selectedPurchase;
 		if ( isPlan( purchase ) ) {
 			return (
 				<div className="manage-purchase__plan-icon">
@@ -321,7 +320,7 @@ class ManagePurchase extends Component {
 	}
 
 	renderPlanDescription() {
-		const purchase = getPurchase( this.props );
+		const purchase = this.props.selectedPurchase;
 		const { plan, selectedSite, theme, translate } = this.props;
 
 		let description = purchaseType( purchase );
@@ -388,7 +387,7 @@ class ManagePurchase extends Component {
 		}
 
 		const { selectedSiteId, selectedSite, selectedPurchase } = this.props;
-		const purchase = getPurchase( this.props );
+		const purchase = this.props.selectedPurchase;
 		const classes = classNames( 'manage-purchase__info', {
 			'is-expired': purchase && isExpired( purchase ),
 			'is-personal': isPersonal( purchase ),

@@ -70,10 +70,4 @@ function getEditCardDetailsPath( siteSlug, purchase ) {
 	return addCardDetails( siteSlug, purchase.id );
 }
 
-export {
-	getPurchase,
-	isDataLoading,
-	recordPageView,
-	canEditPaymentDetails,
-	getEditCardDetailsPath,
-};
+export { isDataLoading, recordPageView, canEditPaymentDetails, getEditCardDetailsPath };
