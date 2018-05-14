@@ -9,7 +9,6 @@ import React from 'react';
  * Internal dependencies
  */
 import ExternalLink from 'components/external-link';
-import ReaderFullPostHeaderPlaceholder from 'blocks/reader-full-post/placeholders/header';
 
 /* eslint-disable react/jsx-no-target-blank */
 const ReaderFullPostHeader = ( { post, referralPost, isLoading } ) =>
