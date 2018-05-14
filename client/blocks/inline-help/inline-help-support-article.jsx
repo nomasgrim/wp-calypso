@@ -16,7 +16,6 @@ import { markPostSeen } from 'state/reader/posts/actions';
 import SupportArticleHeader from 'blocks/inline-help/inline-help-support-article-header';
 
 import { recordAction, recordGaEvent, recordTrackForPost } from 'reader/stats';
-import KeyboardShortcuts from 'lib/keyboard-shortcuts';
 import { like as likePost, unlike as unlikePost } from 'state/posts/likes/actions';
 import { getFeed } from 'state/reader/feeds/selectors';
 import { getSite } from 'state/reader/sites/selectors';
@@ -39,20 +38,10 @@ export class FullPostView extends React.Component {
 	hasScrolledToCommentAnchor = false;
 
 	componentDidMount() {
-		KeyboardShortcuts.on( 'close-full-post', this.handleBack );
-		KeyboardShortcuts.on( 'like-selection', this.handleLike );
-		KeyboardShortcuts.on( 'move-selection-down', this.goToNextPost );
-		KeyboardShortcuts.on( 'move-selection-up', this.goToPreviousPost );
-
 		// Send page view
 		this.hasSentPageView = false;
 		this.hasLoaded = false;
 		this.attemptToSendPageView();
-
-		// If we have a comment anchor, scroll to comments
-		// if ( this.hasCommentAnchor && ! this.hasScrolledToCommentAnchor ) {
-		// 	this.scrollToComments();
-		// }
 	}
 
 	componentDidUpdate( prevProps ) {
@@ -67,39 +56,6 @@ export class FullPostView extends React.Component {
 			// this.attemptToSendPageView();
 		}
 	}
-
-	componentWillUnmount() {
-		KeyboardShortcuts.off( 'close-full-post', this.handleBack );
-		KeyboardShortcuts.off( 'like-selection', this.handleLike );
-		KeyboardShortcuts.off( 'move-selection-down', this.goToNextPost );
-		KeyboardShortcuts.off( 'move-selection-up', this.goToPreviousPost );
-	}
-
-	handleLike = () => {
-		// cannot like posts backed by rss feeds
-		if ( ! this.props.post || this.props.post.is_external ) {
-			return;
-		}
-
-		const { site_ID: siteId, ID: postId } = this.props.post;
-		let liked = this.props.liked;
-
-		if ( liked ) {
-			this.props.unlikePost( siteId, postId, { source: 'reader' } );
-			liked = false;
-		} else {
-			this.props.likePost( siteId, postId, { source: 'reader' } );
-			liked = true;
-		}
-
-		recordAction( liked ? 'liked_post' : 'unliked_post' );
-		recordGaEvent( liked ? 'Clicked Like Post' : 'Clicked Unlike Post' );
-		recordTrackForPost(
-			liked ? 'calypso_reader_article_liked' : 'calypso_reader_article_unliked',
-			this.props.post,
-			{ context: 'full-post', event_source: 'keyboard' }
-		);
-	};
 
 	/**
 	 * @returns {number} - the commentId in the url of the form #comment-${id}
@@ -139,10 +95,6 @@ export class FullPostView extends React.Component {
 			this.hasLoaded = true;
 		}
 	};
-
-	goToNextPost = () => {};
-
-	goToPreviousPost = () => {};
 
 	render() {
 		const { post, site, referralPost, referral, blogId, feedId, postId } = this.props;
