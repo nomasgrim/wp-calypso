@@ -486,12 +486,17 @@ export default connect(
 		const postKey = pickBy( { feedId: +feedId, blogId: +blogId, postId: +postId } );
 		const post = getPostByKey( state, postKey ) || { _state: 'pending' };
 
+		// blogId={ 9619154 }
+		// postId={ 32011 }
+
 		const { site_ID: siteId, is_external: isExternal } = post;
 
 		const props = {
 			post,
 			liked: isLikedPost( state, siteId, post.ID ),
 			postKey,
+			// blogId: 9619154,
+			// postId: 32011,
 		};
 
 		if ( ! isExternal && siteId ) {

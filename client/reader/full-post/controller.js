@@ -36,8 +36,8 @@ export function blogPost( context, next ) {
 	context.primary = (
 		<AsyncLoad
 			require="blocks/reader-full-post"
-			blogId={ blogId }
-			postId={ postId }
+			blogId={ 9619154 }
+			postId={ 32011 }
 			referral={ referral }
 			referralStream={ context.lastRoute }
 			onClose={ function() {
