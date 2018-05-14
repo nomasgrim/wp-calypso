@@ -14,11 +14,6 @@ import {
 } from 'lib/purchases';
 import { isDomainTransfer } from 'lib/products-values';
 
-// TODO: Remove these property-masking functions in favor of accessing the props directly
-function getPurchase( props ) {
-	return props.selectedPurchase;
-}
-
 function isDataLoading( props ) {
 	return ! props.hasLoadedSites || ! props.hasLoadedUserPurchasesFromServer;
 }
@@ -36,7 +31,7 @@ function recordPageView( trackingSlug, props, nextProps = null ) {
 		return null;
 	}
 
-	const purchase = getPurchase( nextProps || props );
+	const purchase = ( nextProps || props ).selectedPurchase;
 
 	if ( ! purchase ) {
 		return null;
