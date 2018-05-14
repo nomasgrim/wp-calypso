@@ -53,8 +53,6 @@ class InlineHelpRichResult extends Component {
 			isUndefined
 		);
 
-		console.log( { postId } );
-
 		this.props.recordTracksEvent( `calypso_inlinehelp_${ type }_open`, tracksData );
 
 		if ( type === RESULT_TOUR ) {
