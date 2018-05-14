@@ -118,11 +118,11 @@ class ManagePurchase extends Component {
 	}
 
 	handleRenew = () => {
-		const purchase = this.props.selectedPurchase,
-			renewItem = cartItems.getRenewalItemFromProduct( purchase, {
-				domain: purchase.meta,
-			} ),
-			renewItems = [ renewItem ];
+		const purchase = this.props.selectedPurchase;
+		const renewItem = cartItems.getRenewalItemFromProduct( purchase, {
+			domain: purchase.meta,
+		} );
+		const renewItems = [ renewItem ];
 
 		// Track the renew now submit
 		analytics.tracks.recordEvent( 'calypso_purchases_renew_now_click', {
@@ -210,8 +210,8 @@ class ManagePurchase extends Component {
 	}
 
 	renderCancelPurchaseNavItem() {
-		const purchase = this.props.selectedPurchase,
-			{ id } = purchase;
+		const purchase = this.props.selectedPurchase;
+		const { id } = purchase;
 		const { translate, isAtomicSite } = this.props;
 
 		if ( ! isCancelable( purchase ) || ! this.props.selectedSite ) {
@@ -271,8 +271,8 @@ class ManagePurchase extends Component {
 	}
 
 	renderCancelPrivacyProtection() {
-		const purchase = this.props.selectedPurchase,
-			{ id } = purchase;
+		const purchase = this.props.selectedPurchase;
+		const { id } = purchase;
 		const { translate } = this.props;
 
 		if (
