@@ -11,7 +11,7 @@ import { localize } from 'i18n-calypso';
  */
 import Card from 'components/card';
 import ThreatAlert from './threat-alert';
-import { getRewindAlerts } from 'state/selectors';
+import getRewindAlerts from 'state/selectors/get-rewind-alerts';
 
 export class RewindAlerts extends Component {
 	render() {

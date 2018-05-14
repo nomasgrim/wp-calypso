@@ -37,7 +37,8 @@ import hasActiveHappychatSession from 'state/happychat/selectors/has-active-happ
 import isHappychatAvailable from 'state/happychat/selectors/is-happychat-available';
 import FormSectionHeading from 'components/forms/form-section-heading';
 import userFactory from 'lib/user';
-import { isDomainOnlySite as isDomainOnly, isSiteAutomatedTransfer } from 'state/selectors';
+import isDomainOnly from 'state/selectors/is-domain-only-site';
+import isSiteAutomatedTransfer from 'state/selectors/is-site-automated-transfer';
 import { receiveDeletedSite } from 'state/sites/actions';
 import { setAllSitesSelected } from 'state/ui/actions';
 import { recordTracksEvent } from 'state/analytics/actions';
