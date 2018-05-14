@@ -43,7 +43,7 @@ class InlineHelpRichResult extends Component {
 		const { href } = event.target;
 		const { type, result } = this.props;
 		const tour = get( result, RESULT_TOUR );
-		const postId = get( result, 'postId' );
+		const postId = get( result, 'post_id' );
 		const tracksData = omitBy(
 			{
 				search_query: this.props.searchQuery,
