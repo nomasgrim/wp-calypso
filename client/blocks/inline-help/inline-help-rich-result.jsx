@@ -78,6 +78,7 @@ class InlineHelpRichResult extends Component {
 			this.props.setDialogState( {
 				showDialog: true,
 				dialogType: 'article',
+				dialogPostHref: href,
 				dialogPostId: postId,
 			} );
 		} else {

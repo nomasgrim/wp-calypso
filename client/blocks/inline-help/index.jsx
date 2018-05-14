@@ -111,25 +111,46 @@ class InlineHelp extends Component {
 	};
 
 	// @TODO: Instead of prop drilling this should be done via redux
-	setDialogState = ( { showDialog, videoLink = null, dialogType, dialogPostId = null } ) =>
+	setDialogState = ( {
+		showDialog,
+		videoLink = null,
+		dialogType,
+		dialogPostId = null,
+		dialogPostHref = null,
+	} ) =>
 		this.setState( {
 			showDialog,
 			videoLink,
 			dialogType,
 			dialogPostId,
+			dialogPostHref,
 		} );
 
 	closeDialog = () => this.setState( { showDialog: false } );
 
 	render() {
 		const { translate } = this.props;
-		const { showInlineHelp, showDialog, videoLink, dialogType, dialogPostId } = this.state;
+		const {
+			showInlineHelp,
+			showDialog,
+			videoLink,
+			dialogType,
+			dialogPostId,
+			dialogPostHref,
+		} = this.state;
 		const inlineHelpButtonClasses = { 'inline-help__button': true, 'is-active': showInlineHelp };
 
 		/* @TODO: This class is not valid and this tricks the linter
 		 		  fix this class and fix the linter to catch similar instances.
 		 */
 		const iframeClasses = classNames( 'inline-help__richresult__dialog__video' );
+
+		const dialogButtons = dialogType === 'article' && [
+			<Button href={ dialogPostHref } target="_blank" primary>
+				{ translate( 'Visit Article' ) }
+			</Button>,
+			<Button onClick={ this.closeDialog }>{ translate( 'Close', { textOnly: true } ) }</Button>,
+		];
 
 		return (
 			<div className="inline-help">
@@ -155,6 +176,7 @@ class InlineHelp extends Component {
 					<Dialog
 						additionalClassNames="inline-help__richresult__dialog"
 						isVisible
+						buttons={ dialogButtons }
 						onCancel={ this.closeDialog }
 						onClose={ this.closeDialog }
 					>
